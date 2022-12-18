@@ -26,7 +26,7 @@ async function login() {
 //TODO check assingment 
 function createSession(user) {   // create payload for cookie or has to manually log in
     const payload = {
-        _id,
+        _id: user._id,
         username: user.username,
     };
     const token = jwt.sign(payload, JWT_SECRET);

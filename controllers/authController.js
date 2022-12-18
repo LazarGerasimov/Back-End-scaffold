@@ -1,3 +1,5 @@
+const { register } = require('../services/userService');
+
 const authController = require('express').Router();
 
 authController.get('/register', (req, res) => {
@@ -8,8 +10,9 @@ authController.get('/register', (req, res) => {
 });
 
 authController.post('/register', async (req, res) => {
-    console.log(req.body);
-
+    // console.log(req.body);
+    const token = await register(req.body.username, req.body.password);
+    res.cookie('token', token);
     res.redirect('/auth/register');
 });
 
