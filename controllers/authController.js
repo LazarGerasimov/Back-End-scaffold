@@ -1,4 +1,4 @@
-const { register } = require('../services/userService');
+const { register, login } = require('../services/userService');
 const { parseError } = require('../util/parser');
 
 const authController = require('express').Router();
@@ -21,7 +21,7 @@ authController.post('/register', async (req, res) => {
         }
         const token = await register(req.body.username, req.body.password);
         res.cookie('token', token);
-        res.redirect('/auth/register');
+        res.redirect('/'); //TODO check asignment routing
     } catch (error) {
         // console.log(error);              // reveal if needed
         const errors = parseError(error); //split error
@@ -36,6 +36,29 @@ authController.post('/register', async (req, res) => {
     }
 
 });
+
+authController.get('/login', (req, res) => {  // render view 
+    res.render('login', {
+        title: 'Login Page'
+    });
+});
+
+authController.post('/login', async (req, res) => { // send req to db
+    try {
+        const token = await login(req.body.username, req.body.password);
+        res.cookie('token', token);
+        res.redirect('/'); //TODO check with asignment routing
+    } catch (error) {
+        const errors = parseError(error);
+        res.render('login', {
+            title: 'Login',
+            errors,
+            body: {
+                username: req.body.username
+            }
+        });
+    };
+}); 
 
 
 module.exports = authController;
