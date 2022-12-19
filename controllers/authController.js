@@ -27,7 +27,7 @@ authController.post('/register', async (req, res) => {
         //TODO add actual error display
         res.render('register', {
             title: 'Register Page',
-            error,
+            errors,
             body: {
                 username: req.body.username
             }
