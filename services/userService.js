@@ -42,8 +42,8 @@ function createSession(user) {   // create payload for cookie or has to manually
     return jwt.sign(payload, JWT_SECRET);
 }
 
-function verifyToken() {
-
+function verifyToken(token) {
+    return jwt.verify(token, JWT_SECRET);
 }
 
 
