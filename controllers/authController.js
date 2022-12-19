@@ -23,9 +23,10 @@ authController.post('/register', async (req, res) => {
         res.cookie('token', token);
         res.redirect('/auth/register');
     } catch (error) {
+        console.log(error);
         const errors = parseError(error); //split error
         //TODO add actual error display
-        res.render('register', {
+        res.render('register', {  // render page + error
             title: 'Register Page',
             errors,
             body: {
