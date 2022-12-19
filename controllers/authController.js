@@ -60,5 +60,10 @@ authController.post('/login', async (req, res) => { // send req to db
     };
 }); 
 
+authController.get('/logout', (req, res) => {
+    res.clearCookie('token');
+    res.redirect('/');
+})
+
 
 module.exports = authController;
